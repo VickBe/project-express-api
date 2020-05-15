@@ -36,9 +36,12 @@ app.get('/shows/', (req, res) => {
   if (year != undefined) {
     shows = shows.filter((item) => item.release_year === +year)
   }
-  else {
-    res.status(404).json({ error: 'not found' })
+  if (shows.length === 0) {
+    res.status(404).send(`Couldn't find any shows matching your search`)
+  } else {
+    res.json(shows)
   }
+
  
   res.json(shows)
 
